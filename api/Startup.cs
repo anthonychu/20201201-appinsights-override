@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +12,20 @@ namespace Company.Function
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            var servicesToRemove = new List<ServiceDescriptor>();
+            foreach (var x in builder.Services)
+            {
+                System.Console.WriteLine(x.ServiceType.ToString());
+                if (x.ToString().Contains("ITelemetryInitializer"))
+                {
+                    servicesToRemove.Add(x);
+                }
+            }
+            foreach (var x in servicesToRemove)
+            {
+                System.Console.WriteLine("Removing " + x.ToString());
+                builder.Services.Remove(x);
+            }
             builder.Services.AddSingleton<ITelemetryInitializer, MyTelemetryInitializer>();
         }
     }
