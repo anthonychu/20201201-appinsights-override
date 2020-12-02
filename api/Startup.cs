@@ -27,8 +27,8 @@ namespace Company.Function
                 System.Console.WriteLine("Removing " + x.ToString());
                 builder.Services.Remove(x);
             }
-            builder.Services.AddSingleton<ITelemetryInitializer, MyRoleEnvironmentTelemetryInitializer>();
             builder.Services.AddSingleton<ITelemetryInitializer, MyWebJobsTelemetryInitializer>();
+            builder.Services.AddSingleton<ITelemetryInitializer, MyRoleEnvironmentTelemetryInitializer>();
         }
     }
 }
