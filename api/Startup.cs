@@ -16,7 +16,7 @@ namespace Company.Function
             foreach (var x in builder.Services)
             {
                 System.Console.WriteLine(x.ServiceType.ToString());
-                if (x.ToString().Contains("ITelemetryInitializer"))
+                if (x.ToString().Contains("WebJobsRoleEnvironmentTelemetryInitializer"))
                 {
                     servicesToRemove.Add(x);
                 }
