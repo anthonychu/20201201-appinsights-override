@@ -16,7 +16,8 @@ namespace Company.Function
             foreach (var x in builder.Services)
             {
                 System.Console.WriteLine(x.ServiceType.ToString());
-                if (x.ToString().Contains("WebJobsRoleEnvironmentTelemetryInitializer"))
+                if (x.ToString().Contains("WebJobsRoleEnvironmentTelemetryInitializer") ||
+                    x.ToString().Contains("WebJobsTelemetryInitializer"))
                 {
                     servicesToRemove.Add(x);
                 }
@@ -26,7 +27,8 @@ namespace Company.Function
                 System.Console.WriteLine("Removing " + x.ToString());
                 builder.Services.Remove(x);
             }
-            builder.Services.AddSingleton<ITelemetryInitializer, MyTelemetryInitializer>();
+            builder.Services.AddSingleton<ITelemetryInitializer, MyRoleEnvironmentTelemetryInitializer>();
+            builder.Services.AddSingleton<ITelemetryInitializer, MyWebJobsTelemetryInitializer>();
         }
     }
 }
