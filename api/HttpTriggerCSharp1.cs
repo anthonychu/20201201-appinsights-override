@@ -27,7 +27,7 @@ namespace Company.Function
 
             string responseMessage = string.IsNullOrEmpty(name)
                 ? "This HTTP triggered function executed successfully. " + System.Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME")
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+                : $"Hello, {name}. This HTTP triggered function executed successfully!";
 
             return new OkObjectResult(responseMessage);
         }
