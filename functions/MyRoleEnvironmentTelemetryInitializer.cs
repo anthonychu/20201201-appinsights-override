@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
@@ -52,6 +53,14 @@ namespace Company.Function
                     // maintain previous behavior of node having the full url
                     return p += WebAppSuffix;
                 });
+            }
+
+            RequestTelemetry request = telemetry as RequestTelemetry;
+            if (request != null)
+            {
+                var builder = new UriBuilder(request.Url);
+                builder.Host = "hello-world";
+                request.Url = builder.Uri;
             }
         }
 
